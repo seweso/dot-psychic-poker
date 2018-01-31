@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
 using dot_psychic_poker_console.Model;
 
 namespace dot_psychic_poker_console
@@ -23,6 +20,8 @@ namespace dot_psychic_poker_console
             }
         }
 
+        private static HandRank bestHandTempHack = HandRank.StraightFlush; // TODO Temporary
+
         /// <summary>
         ///     Process one line
         /// </summary>
@@ -39,9 +38,9 @@ namespace dot_psychic_poker_console
 
             var hand = cards.GetRange(0, 5);
             var deck = cards.GetRange(5, 5);
-            const string bestHand = "straight-flush"; // TODO Implement 
+            var bestHand = bestHandTempHack++; //TODO: Implement
 
-            return "Hand: " + hand.Join() + " Deck: " + deck.Join() + " Best hand: " + bestHand;
+            return "Hand: " + hand.Join() + " Deck: " + deck.Join() + " Best hand: " + bestHand.ToRankString();
         }
     }
 }

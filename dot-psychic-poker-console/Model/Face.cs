@@ -2,6 +2,9 @@
 
 namespace dot_psychic_poker_console.Model
 {
+    /// <summary>
+    ///     Face Value of a Poker Card, 4th character is used for parsing/writing back to string
+    /// </summary>
     public enum Face
     {
         FaceAce, 

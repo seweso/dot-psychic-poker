@@ -2,6 +2,9 @@
 
 namespace dot_psychic_poker_console.Model
 {
+    /// <summary>
+    ///     Suit of a Poker Card, 1st character is used for parsing/writing back to string
+    /// </summary>
     public enum Suit
     {
         Clubs,

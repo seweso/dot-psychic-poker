@@ -20,9 +20,9 @@ namespace dot_psychic_poker_console
             {HandRank.Flush, IsFlush},
             {HandRank.Straight, IsStraight},
             {HandRank.ThreeOfAKind, IsThreeOfAKind},
-            {HandRank.TwoPair, IsTwoPair},
+            {HandRank.TwoPairs, IsTwoPair},
             {HandRank.OnePair, IsOnePair},
-            {HandRank.HighCard, IsHighCard},
+            {HandRank.HighestCard, IsHighCard},
         };
 
         public static bool IsStraightFlush(List<Card> cards)

@@ -22,6 +22,16 @@ namespace dot_psychic_poker_consoleTests
         }
 
         [Test]
+        public void IsFourOfAKindTest()
+        {
+            Assert.True(HandChecker.IsFourOfAKind(CardUtil.GetCards("5H 5S 5C 5D 8H")));
+            Assert.True(HandChecker.IsFourOfAKind(CardUtil.GetCards("AH AS AC AD 8H")));
+
+            Assert.False(HandChecker.IsFourOfAKind(CardUtil.GetCards("5H 5S 5C 4D 8H")));
+            Assert.False(HandChecker.IsFourOfAKind(CardUtil.GetCards("3H AS AC AD 8H")));
+        }
+
+        [Test]
         public void IsOnePairTest()
         {
             Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S")));

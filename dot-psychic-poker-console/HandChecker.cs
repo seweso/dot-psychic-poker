@@ -61,6 +61,11 @@ namespace dot_psychic_poker_console
 
         public static bool IsStraightFlush(List<Card> cards)
         {
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
             // Can't be a straight flush if all aren't the same suit
             if (!SameSuit(cards))
             {
@@ -84,9 +89,20 @@ namespace dot_psychic_poker_console
         }
 
 
-        private static bool IsFourOfAKind(List<Card> cards)
+        public static bool IsFourOfAKind(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            var ordered = cards.OrderBy(c => c.Face).ToList();
+
+            // If this is a four of a kind, the middle card should be the majority type
+            var face = ordered[2].Face;
+
+            // Check if there are four cards of this face
+            return cards.Count(c => c.Face == face) == 4;
         }
 
         private static bool IsFullHouse(List<Card> cards)

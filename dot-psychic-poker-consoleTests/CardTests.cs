@@ -7,6 +7,9 @@ namespace dot_psychic_poker_consoleTests
     [TestFixture]
     public class CardTests
     {
+        /// <summary>
+        ///     Test creating card structs
+        /// </summary>
         [Test]
         public void CreateTest()
         {
@@ -27,6 +30,20 @@ namespace dot_psychic_poker_consoleTests
             Assert.Throws<ArgumentException>(() => Card.Create("ACC"));
             Assert.Throws<ArgumentException>(() => Card.Create("Q♥"));
             Assert.Throws<ArgumentException>(() => Card.Create("0C"));
+        }
+
+
+        /// <summary>
+        ///     Check rountrip parsing of string of cards to list of Card and back to string 
+        /// </summary>
+        [Test]
+        public void GetCardsTest()
+        {
+            const string expected = "TH JH QC QD QS QH KH AH 2S 6S";
+            var cards = Card.GetCards(expected);
+            var actual = cards.Join();
+
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }

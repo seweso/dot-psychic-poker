@@ -10,8 +10,8 @@ namespace dot_psychic_poker_console
     /// </summary>
     public struct Card
     {
-        public readonly Suit Suit;
         public readonly Face Face;
+        public readonly Suit Suit;
 
         public static List<Card> GetCards(string cardString)
         {
@@ -22,6 +22,11 @@ namespace dot_psychic_poker_console
         {
             Suit = suit;
             Face = face;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("{0}{1}", Face.ToCharacter(), Suit.ToCharacter());
         }
 
         public static Card Create(string arg)
@@ -35,6 +40,20 @@ namespace dot_psychic_poker_console
             var suite = SuitUtil.GetSuit(arg[1]);
 
             return new Card(suite, face);
+        }
+    }
+
+
+    public static class CardUtil
+    {
+        /// <summary>
+        ///     Convert list of cards to string
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <returns></returns>
+        public static string Join(this IEnumerable<Card> cards)
+        {
+            return String.Join(" ", cards.Select(c => c.ToString()));
         }
     }
 }

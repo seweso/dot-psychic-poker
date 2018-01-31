@@ -156,9 +156,20 @@ namespace dot_psychic_poker_console
             return IsSequentialHighRules(cards);
         }
 
-        private static bool IsThreeOfAKind(List<Card> cards)
+        public static bool IsThreeOfAKind(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            var ordered = cards.OrderBy(c => c.Face).ToList();
+
+            // If this is a three of a kind, the middle card should be the majority type
+            var face = ordered[2].Face;
+
+            // Check if there are three cards of this face
+            return cards.Count(c => c.Face == face) == 3;
         }
 
         private static bool IsTwoPair(List<Card> cards)

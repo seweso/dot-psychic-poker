@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dot_psychic_poker_console
 {
-    public enum FaceValue
+    public enum Face
     {
         FaceAce, 
         FaceKing,
@@ -24,5 +24,5 @@ namespace dot_psychic_poker_console
     }
 
 
-    
+
 }

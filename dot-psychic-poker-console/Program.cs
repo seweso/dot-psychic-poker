@@ -38,6 +38,9 @@ namespace dot_psychic_poker_console
 
         public static List<string> ProcessStringList(List<string> input)
         {
+            // TODO Implement
+
+
             if (!input.SequenceEqual(new List<string>
             {
                 "TH JH QC QD QS QH KH AH 2S 6S",
@@ -51,11 +54,12 @@ namespace dot_psychic_poker_console
                 "3D 5S 2H QD TD 6S KH 9H AD QH",
             }))
             {
+                // TODO Remove
                 Console.WriteLine("error");
                 throw new Exception("x");
             }
 
-
+            // TODO Remove
             return new List<string>
             {
                 "Hand: TH JH QC QD QS Deck: QH KH AH 2S 6S Best hand: straight-flush",

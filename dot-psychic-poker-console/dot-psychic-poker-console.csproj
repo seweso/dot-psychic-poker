@@ -61,6 +61,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BitUtil.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="Model\Face.cs" />

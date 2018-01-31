@@ -1,4 +1,5 @@
-﻿using dot_psychic_poker_console;
+﻿using System.Collections.Generic;
+using dot_psychic_poker_console;
 using dot_psychic_poker_console.Model;
 using NUnit.Framework;
 
@@ -91,6 +92,16 @@ namespace dot_psychic_poker_consoleTests
         {
             Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S 1H 4H 3H")));
             Assert.False(HandChecker.IsOnePair(CardUtil.GetCards("3H 2S 1H 6H 8H")));
+        }
+
+
+        [Test]
+        public void GetBestRankTest()
+        {
+            List<Card> hand = CardUtil.GetCards("2H 2S 3H 3S 3C");
+            List<Card> deck = CardUtil.GetCards("2D 3D 6C 9C TH");
+
+            Assert.AreEqual(HandRank.FourOfAKind, HandChecker.GetBestRank(hand, deck));
         }
     }
 }

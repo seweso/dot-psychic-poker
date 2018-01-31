@@ -31,8 +31,49 @@ namespace dot_psychic_poker_console
         /// <returns></returns>
         public static HandRank GetBestRank(List<Card> hand, List<Card> deck)
         {
-            // TODO: Try multiple hands by grabbing from deck
-            return GetBestRank(hand);
+            if (hand.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            HandRank currentRank = HandRank.HighestCard;
+
+            // 5 cards is 5 bits
+            int totalNrOfOptions = (int) Math.Pow(2, 5);
+
+            // Brute force all options by replacing cards based on bit mask // TODO Refactor into enumerator
+            for (int i = 0; i < totalNrOfOptions; i++)
+            {
+                var handCopy = new List<Card>(hand);
+                int deckPosition = 0;
+
+                // Loop through cards 1-5
+                for (int b = 0; b < 5; b++)
+                {
+                    // If this bit 1 then replace card
+                    if (BitUtil.IsBitSet(i, b))
+                    {
+                        handCopy[b] = deck[deckPosition++];
+                    }
+                }
+
+                // Calculate best rank for this hand
+                var rankForCurrentHand = GetBestRank(handCopy);
+
+                // No need to search further if you found a straight flush
+                if (rankForCurrentHand == HandRank.StraightFlush)
+                {
+                    return HandRank.StraightFlush;
+                }
+
+                // Found a beter rank?
+                if (rankForCurrentHand < currentRank)
+                {
+                    currentRank = rankForCurrentHand;
+                }
+            }
+
+            return currentRank;
         }
 
         /// <summary>

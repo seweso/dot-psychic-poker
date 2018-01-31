@@ -132,9 +132,14 @@ namespace dot_psychic_poker_console
             return false;
         }
 
-        private static bool IsFlush(List<Card> cards)
+        public static bool IsFlush(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            return SameSuit(cards);
         }
 
         private static bool IsStraight(List<Card> cards)

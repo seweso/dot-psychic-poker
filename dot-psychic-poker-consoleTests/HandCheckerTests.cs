@@ -43,6 +43,14 @@ namespace dot_psychic_poker_consoleTests
         }
 
         [Test]
+        public void IsFlushTest()
+        {
+            Assert.True(HandChecker.IsFlush(CardUtil.GetCards("AH JH TH 9H 8H")));
+
+            Assert.False(HandChecker.IsFlush(CardUtil.GetCards("AH JC TH 9H 8H")));
+        }
+
+        [Test]
         public void IsOnePairTest()
         {
             Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S")));

@@ -24,5 +24,23 @@ namespace dot_psychic_poker_console
     }
 
 
+    public static class FaceUtil
+    {
+        public static string ToCharacter(this Face face)
+        {
+            return face.ToString().Substring(4, 1);
+        }
 
+        public static Face GetFace(string faceCharacter)
+        {
+            foreach (var face in EnumUtil.GetValues<Face>())
+            {
+                if (face.ToCharacter() == faceCharacter)
+                {
+                    return face;
+                }
+            }
+            throw new ArgumentException("Invalid face: " + faceCharacter);
+        }
+    }
 }

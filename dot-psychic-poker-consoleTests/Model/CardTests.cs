@@ -1,8 +1,8 @@
 ﻿using System;
-using dot_psychic_poker_console;
+using dot_psychic_poker_console.Model;
 using NUnit.Framework;
 
-namespace dot_psychic_poker_consoleTests
+namespace dot_psychic_poker_consoleTests.Model
 {
     [TestFixture]
     public class CardTests

@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using dot_psychic_poker_console;
+using dot_psychic_poker_console.Model;
 using NUnit.Framework;
 
 namespace dot_psychic_poker_console.Tests

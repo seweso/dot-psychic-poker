@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace dot_psychic_poker_console
+namespace dot_psychic_poker_console.Model
 {
     public enum Face
     {

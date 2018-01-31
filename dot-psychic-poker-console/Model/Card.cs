@@ -1,9 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 
-namespace dot_psychic_poker_console
+namespace dot_psychic_poker_console.Model
 {
     /// <summary>
     ///     Immutable struct representing a Poker Playing Card

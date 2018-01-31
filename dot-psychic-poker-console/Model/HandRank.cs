@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace dot_psychic_poker_console
+﻿namespace dot_psychic_poker_console.Model
 {
     public enum HandRank
     {

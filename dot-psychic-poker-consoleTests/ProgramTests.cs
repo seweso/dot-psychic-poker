@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using dot_psychic_poker_console;
 using NUnit.Framework;
 
@@ -10,7 +11,7 @@ namespace dot_psychic_poker_consoleTests
         [Test]
         public void ProcessStringListTest()
         {
-            var actual = Program.ProcessStringList(new List<string>
+            var actual = new List<string>
             {
                 "TH JH QC QD QS QH KH AH 2S 6S",
                 "2H 2S 3H 3S 3C 2D 3D 6C 9C TH",
@@ -21,7 +22,7 @@ namespace dot_psychic_poker_consoleTests
                 "AH 2C 9S AD 3C QH KS JS JD KD",
                 "6C 9C 8C 2D 7C 2H TC 4C 9S AH",
                 "3D 5S 2H QD TD 6S KH 9H AD QH",
-            });
+            }.Select(Program.Process);
 
             var expected = new List<string>
             {

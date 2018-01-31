@@ -16,8 +16,6 @@ namespace dot_psychic_poker_console
         /// <param name="args"></param>
         private static void Main(string[] args)
         {
-            
-
             // Read stdin to list<string>
             List<string> input = new List<string>();
             string line;
@@ -31,7 +29,11 @@ namespace dot_psychic_poker_console
             // Process list<string>
             var output = ProcessStringList(input);
 
-
+            // Write output to stdout
+            foreach (var outputLine in output)
+            {
+                Console.WriteLine(outputLine);
+            }
         }
 
         public static List<string> ProcessStringList(List<string> input)

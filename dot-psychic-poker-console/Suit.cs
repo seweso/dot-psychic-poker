@@ -10,15 +10,14 @@ namespace dot_psychic_poker_console
         Spades
     }
 
-
     public static class SuitUtil
     {
-        public static string ToCharacter(this Suit suit)
+        public static char ToCharacter(this Suit suit)
         {
-            return suit.ToString().Substring(0, 1);
+            return suit.ToString()[0];
         }
 
-        public static Suit GetSuit(string suitCharacter)
+        public static Suit GetSuit(char suitCharacter)
         {
             foreach (var suit in EnumUtil.GetValues<Suit>())
             {

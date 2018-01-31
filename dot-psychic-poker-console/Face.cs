@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace dot_psychic_poker_console
 {
@@ -26,12 +22,12 @@ namespace dot_psychic_poker_console
 
     public static class FaceUtil
     {
-        public static string ToCharacter(this Face face)
+        public static char ToCharacter(this Face face)
         {
-            return face.ToString().Substring(4, 1);
+            return face.ToString()[4];
         }
 
-        public static Face GetFace(string faceCharacter)
+        public static Face GetFace(char faceCharacter)
         {
             foreach (var face in EnumUtil.GetValues<Face>())
             {

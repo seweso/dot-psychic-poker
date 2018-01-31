@@ -172,9 +172,17 @@ namespace dot_psychic_poker_console
             return cards.Count(c => c.Face == face) == 3;
         }
 
-        private static bool IsTwoPair(List<Card> cards)
+        public static bool IsTwoPair(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            // Group by face, and order by count descending (to get two groups of two first)
+            var counts = cards.GroupBy(c => c.Face).Select(g => g.Count()).OrderByDescending(g => g).ToList();
+
+            return counts.Count == 3 && counts[0] == 2 && counts[1] == 2;
         }
 
         public static bool IsOnePair(List<Card> cards)

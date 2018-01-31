@@ -76,6 +76,17 @@ namespace dot_psychic_poker_consoleTests
         }
 
         [Test]
+        public void IsTwoPairTest()
+        {
+            Assert.True(HandChecker.IsTwoPair(CardUtil.GetCards("5H 5S 6C 6D 8H")));
+            Assert.True(HandChecker.IsTwoPair(CardUtil.GetCards("AH AS 5C 5D 8H")));
+
+            Assert.False(HandChecker.IsTwoPair(CardUtil.GetCards("5H 5S 5C 4D 8H")));
+            Assert.False(HandChecker.IsTwoPair(CardUtil.GetCards("3H 3S AC 2D 8H")));
+        }
+
+
+        [Test]
         public void IsOnePairTest()
         {
             Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S")));

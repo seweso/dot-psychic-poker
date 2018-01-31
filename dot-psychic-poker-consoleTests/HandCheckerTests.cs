@@ -31,6 +31,17 @@ namespace dot_psychic_poker_consoleTests
             Assert.False(HandChecker.IsFourOfAKind(CardUtil.GetCards("3H AS AC AD 8H")));
         }
 
+
+        [Test]
+        public void IsFullHouseTest()
+        {
+            Assert.True(HandChecker.IsFullHouse(CardUtil.GetCards("5H 5S 8C 8D 8H")));
+            Assert.True(HandChecker.IsFullHouse(CardUtil.GetCards("AH AS 6C 6D 6H")));
+
+            Assert.False(HandChecker.IsFullHouse(CardUtil.GetCards("5H 5S 5C 4D 8H")));
+            Assert.False(HandChecker.IsFullHouse(CardUtil.GetCards("3H AS AC AD 8H")));
+        }
+
         [Test]
         public void IsOnePairTest()
         {

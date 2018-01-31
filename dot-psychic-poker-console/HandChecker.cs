@@ -105,9 +105,31 @@ namespace dot_psychic_poker_console
             return cards.Count(c => c.Face == face) == 4;
         }
 
-        private static bool IsFullHouse(List<Card> cards)
+        public static bool IsFullHouse(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            var ordered = cards.OrderBy(c => c.Face).ToList();
+
+            // Count nr of cards with faces like the first and last card
+            var count1 = cards.Count(c => c.Face == ordered[0].Face);
+            var count2 = cards.Count(c => c.Face == ordered[4].Face);
+
+            // 3/2 and 2/3 means this is a full house
+            if (count1 == 3 && count2 == 2)
+            {
+                return true;
+            }
+
+            if (count1 == 2 && count2 == 3)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private static bool IsFlush(List<Card> cards)

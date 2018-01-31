@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using dot_psychic_poker_console.Model;
 
 namespace dot_psychic_poker_console
 {
     // TODO: Think of a better name for this class
-    public class HandChecker
+    public static class HandChecker
     {
-        public IDictionary<HandRank, Func<List<Card>, bool>> CheckFunctions = new Dictionary
+        private static readonly IReadOnlyDictionary<HandRank, Func<List<Card>, bool>> CheckFunctions = new Dictionary
             <HandRank, Func<List<Card>, bool>>
         {
             {HandRank.StraightFlush, IsStraightFlush},
@@ -24,6 +20,43 @@ namespace dot_psychic_poker_console
             {HandRank.OnePair, IsOnePair},
             {HandRank.HighestCard, IsHighCard},
         };
+
+
+        /// <summary>
+        ///     Calculate the best possible rank for a hand and a deck
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="deck"></param>
+        /// <returns></returns>
+        public static HandRank GetBestRank(List<Card> hand, List<Card> deck)
+        {
+            // TODO: Try multiple hands by grabbing from deck
+            return GetBestRank(hand);
+        }
+
+        /// <summary>
+        ///     Calculate best rank for a given hand
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <returns></returns>
+        public static HandRank GetBestRank(List<Card> hand)
+        {
+            if (hand.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            // Go through all ranks
+            foreach (var rank in EnumUtil.GetValues<HandRank>())
+            {
+                if (CheckFunctions[rank](hand))
+                {
+                    return rank;
+                }
+            }
+            return HandRank.Nothing;
+        }
+
 
         public static bool IsStraightFlush(List<Card> cards)
         {

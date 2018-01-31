@@ -20,8 +20,6 @@ namespace dot_psychic_poker_console
             }
         }
 
-        private static HandRank bestHandTempHack = HandRank.StraightFlush; // TODO Temporary
-
         /// <summary>
         ///     Process one line
         /// </summary>
@@ -38,7 +36,7 @@ namespace dot_psychic_poker_console
 
             var hand = cards.GetRange(0, 5);
             var deck = cards.GetRange(5, 5);
-            var bestHand = bestHandTempHack++; //TODO: Implement
+            var bestHand = HandChecker.GetBestRank(hand, deck);
 
             return "Hand: " + hand.Join() + " Deck: " + deck.Join() + " Best hand: " + bestHand.ToRankString();
         }

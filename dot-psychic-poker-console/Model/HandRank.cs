@@ -16,6 +16,7 @@ namespace dot_psychic_poker_console.Model
         TwoPairs,
         OnePair,
         HighestCard,
+        Nothing
     }
 
     public static class HandRankUtil

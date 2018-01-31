@@ -24,7 +24,7 @@ namespace dot_psychic_poker_console
             {HandRank.HighCard, IsHighCard},
         };
 
-        private static bool IsStraightFlush(List<Card> cards)
+        public static bool IsStraightFlush(List<Card> cards)
         {
             throw new NotImplementedException();
         }
@@ -65,7 +65,7 @@ namespace dot_psychic_poker_console
             {
                 for (int j = i + 1; j < cards.Count; j++)
                 {
-                    if (cards[i].rank == cards[j].rank)
+                    if (cards[i].Face == cards[j].Face)
                     {
                         return true;
                     }

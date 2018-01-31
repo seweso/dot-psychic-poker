@@ -55,7 +55,8 @@ namespace dot_psychic_poker_console
                     return rank;
                 }
             }
-            return HandRank.Nothing;
+
+            return HandRank.HighestCard;
         }
 
 
@@ -200,7 +201,8 @@ namespace dot_psychic_poker_console
 
         private static bool IsHighCard(List<Card> cards)
         {
-            throw new NotImplementedException();
+            // If you got this far, it's a high card (aka nothing)
+            return true;
         }
     }
 }

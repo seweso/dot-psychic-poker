@@ -22,7 +22,7 @@ namespace dot_psychic_poker_consoleTests
                 "AH 2C 9S AD 3C QH KS JS JD KD",
                 "6C 9C 8C 2D 7C 2H TC 4C 9S AH",
                 "3D 5S 2H QD TD 6S KH 9H AD QH",
-            }.Select(Program.Process);
+            }.Select(Program.Process).ToList();
 
             var expected = new List<string>
             {

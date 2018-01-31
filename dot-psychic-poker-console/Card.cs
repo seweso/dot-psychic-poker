@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -25,7 +26,10 @@ namespace dot_psychic_poker_console
 
         public static Card Create(string arg)
         {
-            Debug.Assert(arg.Length == 2);
+            if (arg.Length != 2)
+            {
+                throw new ArgumentException("Card string not of length 2:" + arg);
+            }
 
             var face = FaceUtil.GetFace(arg[0]);
             var suite = SuitUtil.GetSuit(arg[1]);

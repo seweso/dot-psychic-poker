@@ -1,4 +1,5 @@
-﻿using dot_psychic_poker_console;
+﻿using System;
+using dot_psychic_poker_console;
 using NUnit.Framework;
 
 namespace dot_psychic_poker_consoleTests
@@ -20,6 +21,12 @@ namespace dot_psychic_poker_consoleTests
 
             Assert.AreEqual(Face.Face6, Card.Create("6S").Face);
             Assert.AreEqual(Suit.Spades, Card.Create("6S").Suit);
+
+            Assert.Throws<ArgumentException>(() => Card.Create(""));
+            Assert.Throws<ArgumentException>(() => Card.Create("A"));
+            Assert.Throws<ArgumentException>(() => Card.Create("ACC"));
+            Assert.Throws<ArgumentException>(() => Card.Create("Q♥"));
+            Assert.Throws<ArgumentException>(() => Card.Create("0C"));
         }
     }
 }

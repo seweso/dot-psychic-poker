@@ -67,27 +67,31 @@ namespace dot_psychic_poker_console
             }
 
             // Can't be a straight flush if all aren't the same suit
-            if (!SameSuit(cards))
+            if (!IsSameSuit(cards))
             {
                 return false;
             }
 
-            // Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
-            return Sequential(cards) || Sequential(cards.Select(c => c.AceAsOne));
+            return IsSequentialHighRules(cards);
         }
 
-        private static bool SameSuit(List<Card> cards)
+        private static bool IsSequentialHighRules(List<Card> cards)
+        {
+            // Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
+            return IsSequential(cards) || IsSequential(cards.Select(c => c.AceAsOne));
+        }
+
+        private static bool IsSameSuit(List<Card> cards)
         {
             return cards.All(c => c.Suit == cards[0].Suit);
         }
 
-        private static bool Sequential(IEnumerable<Card> cards)
+        private static bool IsSequential(IEnumerable<Card> cards)
         {
             var ordered = cards.OrderBy(c => c.Face).ToList();
 
             return ordered.Zip(ordered.Skip(1), (a, b) => (a.Face + 1) == b.Face).All(x => x);
         }
-
 
         public static bool IsFourOfAKind(List<Card> cards)
         {
@@ -139,12 +143,17 @@ namespace dot_psychic_poker_console
                 throw new ArgumentException("Hand should contain 5 cards");
             }
 
-            return SameSuit(cards);
+            return IsSameSuit(cards);
         }
 
-        private static bool IsStraight(List<Card> cards)
+        public static bool IsStraight(List<Card> cards)
         {
-            throw new NotImplementedException();
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
+            return IsSequentialHighRules(cards);
         }
 
         private static bool IsThreeOfAKind(List<Card> cards)

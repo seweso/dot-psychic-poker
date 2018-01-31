@@ -51,6 +51,20 @@ namespace dot_psychic_poker_consoleTests
         }
 
         [Test]
+        public void IsStraightTest()
+        {
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("AD KH QH JH TH")));
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("KH QD JH TH 9H")));
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("QH JH TD 9H 8H")));
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("8H 7H 6H 5D 4H")));
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("6H 5S 2H 3H 4D")));
+            Assert.True(HandChecker.IsStraight(CardUtil.GetCards("AH 5H 4H 3D 2H")));
+
+            Assert.False(HandChecker.IsStraight(CardUtil.GetCards("AH JH TH 9H 8H")));
+            Assert.False(HandChecker.IsStraight(CardUtil.GetCards("QH JH TS 9H 7H")));
+        }
+
+        [Test]
         public void IsOnePairTest()
         {
             Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S")));

@@ -40,7 +40,7 @@ namespace dot_psychic_poker_consoleTests
         public void GetCardsTest()
         {
             const string expected = "TH JH QC QD QS QH KH AH 2S 6S";
-            var cards = Card.GetCards(expected);
+            var cards = CardUtil.GetCards(expected);
             var actual = cards.Join();
 
             CollectionAssert.AreEqual(expected, actual);

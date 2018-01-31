@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using dot_psychic_poker_console.Model;
 
 namespace dot_psychic_poker_console
@@ -60,8 +61,28 @@ namespace dot_psychic_poker_console
 
         public static bool IsStraightFlush(List<Card> cards)
         {
-            throw new NotImplementedException();
+            // Can't be a straight flush if all aren't the same suit
+            if (!SameSuit(cards))
+            {
+                return false;
+            }
+
+            // Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
+            return Sequential(cards) || Sequential(cards.Select(c => c.AceAsOne));
         }
+
+        private static bool SameSuit(List<Card> cards)
+        {
+            return cards.All(c => c.Suit == cards[0].Suit);
+        }
+
+        private static bool Sequential(IEnumerable<Card> cards)
+        {
+            var ordered = cards.OrderBy(c => c.Face).ToList();
+
+            return ordered.Zip(ordered.Skip(1), (a, b) => (a.Face + 1) == b.Face).All(x => x);
+        }
+
 
         private static bool IsFourOfAKind(List<Card> cards)
         {

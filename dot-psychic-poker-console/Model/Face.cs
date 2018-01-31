@@ -20,6 +20,7 @@ namespace dot_psychic_poker_console.Model
         Face4,
         Face3,
         Face2,
+        Face1Ace,
     }
 
 

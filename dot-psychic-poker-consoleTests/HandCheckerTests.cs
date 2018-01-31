@@ -10,11 +10,15 @@ namespace dot_psychic_poker_consoleTests
         [Test]
         public void IsStraightFlushTest()
         {
-            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("Q♥ J♥ 10♥ 9♥ 8♥")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("AH KH QH JH TH")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("KH QH JH TH 9H")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("QH JH TH 9H 8H")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("8H 7H 6H 5H 4H")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("6H 5H 2H 3H 4H")));
+            Assert.True(HandChecker.IsStraightFlush(CardUtil.GetCards("AH 5H 4H 3H 2H")));
 
-
-            Assert.False(HandChecker.IsStraightFlush(CardUtil.GetCards("Q♥ J♥ 10♣ 9♥ 8♥")));
-            
+            Assert.False(HandChecker.IsStraightFlush(CardUtil.GetCards("AH JH TH 9H 8H")));
+            Assert.False(HandChecker.IsStraightFlush(CardUtil.GetCards("QH JH TS 9H 8H")));
         }
 
         [Test]

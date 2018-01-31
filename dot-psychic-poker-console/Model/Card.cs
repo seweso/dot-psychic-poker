@@ -15,12 +15,20 @@ namespace dot_psychic_poker_console.Model
         /// <summary>
         ///     c'tor
         /// </summary>
-        /// <param name="suit"></param>
         /// <param name="face"></param>
-        private Card(Suit suit, Face face)
+        /// <param name="suit"></param>
+        private Card(Face face, Suit suit)
         {
             Suit = suit;
             Face = face;
+        }
+
+        /// <summary>
+        ///     Return this card but with Ace --> 1
+        /// </summary>
+        public Card AceAsOne
+        {
+            get { return Face == Face.FaceAce ? new Card(Face.Face1Ace, Suit) : this; }
         }
 
         /// <summary>
@@ -47,7 +55,7 @@ namespace dot_psychic_poker_console.Model
             var face = FaceUtil.GetFace(arg[0]);
             var suite = SuitUtil.GetSuit(arg[1]);
 
-            return new Card(suite, face);
+            return new Card(face, suite);
         }
     }
 

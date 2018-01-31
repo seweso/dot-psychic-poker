@@ -89,8 +89,8 @@ namespace dot_psychic_poker_consoleTests
         [Test]
         public void IsOnePairTest()
         {
-            Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S")));
-            Assert.False(HandChecker.IsOnePair(CardUtil.GetCards("3H 2S")));
+            Assert.True(HandChecker.IsOnePair(CardUtil.GetCards("2H 2S 1H 4H 3H")));
+            Assert.False(HandChecker.IsOnePair(CardUtil.GetCards("3H 2S 1H 6H 8H")));
         }
     }
 }

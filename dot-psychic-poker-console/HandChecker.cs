@@ -187,18 +187,15 @@ namespace dot_psychic_poker_console
 
         public static bool IsOnePair(List<Card> cards)
         {
-            for (int i = 0; i < cards.Count - 1; i++)
+            if (cards.Count != 5)
             {
-                for (int j = i + 1; j < cards.Count; j++)
-                {
-                    if (cards[i].Face == cards[j].Face)
-                    {
-                        return true;
-                    }
-                }
+                throw new ArgumentException("Hand should contain 5 cards");
             }
 
-            return false;
+            // Group by face, and order by count descending (to one group of two first)
+            var counts = cards.GroupBy(c => c.Face).Select(g => g.Count()).OrderByDescending(g => g).ToList();
+
+            return counts[0] == 2;
         }
 
         private static bool IsHighCard(List<Card> cards)

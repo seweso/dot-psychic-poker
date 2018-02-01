@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitUtil.cs" />
+    <Compile Include="Constants.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="EnumUtil.cs" />
     <Compile Include="Model\Face.cs" />

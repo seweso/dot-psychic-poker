@@ -28,13 +28,13 @@ namespace dot_psychic_poker_console
         {
             var cards = CardUtil.GetCards(line);
 
-            if (cards.Count != 10)
+            if (cards.Count != (Constants.CardsInOneHand*2))
             {
                 throw new ArgumentException("Card count incorrect: " + cards.Count);
             }
 
-            var hand = cards.GetRange(0, 5);
-            var deck = cards.GetRange(5, 5);
+            var hand = cards.GetRange(0, Constants.CardsInOneHand);
+            var deck = cards.GetRange(Constants.CardsInOneHand, Constants.CardsInOneHand);
             var bestHand = HandChecker.GetBestRank(hand, deck);
 
             return "Hand: " + hand.Join() + " Deck: " + deck.Join() + " Best hand: " + bestHand.ToRankString();

@@ -14,22 +14,21 @@ namespace dot_psychic_poker_console
     /// </summary>
     public static class HandChecker
     {
-
         /// <summary>
         ///     List of all functions in this class for easy/fast access
         /// </summary>
-        private static readonly IReadOnlyDictionary<HandRank, Func<List<Card>, bool>> CheckFunctions = new Dictionary
-            <HandRank, Func<List<Card>, bool>>
+        private static readonly IReadOnlyDictionary<HandRank, Func<IReadOnlyList<Card>, bool>> CheckFunctions = new Dictionary
+            <HandRank, Func<IReadOnlyList<Card>, bool>>
         {
             {HandRank.StraightFlush, IsStraightFlush},
-            {HandRank.FourOfAKind  , IsFourOfAKind},
-            {HandRank.FullHouse    , IsFullHouse},
-            {HandRank.Flush        , IsFlush},
-            {HandRank.Straight     , IsStraight},
-            {HandRank.ThreeOfAKind , IsThreeOfAKind},
-            {HandRank.TwoPairs     , IsTwoPair},
-            {HandRank.OnePair      , IsOnePair},
-            {HandRank.HighestCard  , IsHighCard},
+            {HandRank.FourOfAKind, IsFourOfAKind},
+            {HandRank.FullHouse, IsFullHouse},
+            {HandRank.Flush, IsFlush},
+            {HandRank.Straight, IsStraight},
+            {HandRank.ThreeOfAKind, IsThreeOfAKind},
+            {HandRank.TwoPairs, IsTwoPair},
+            {HandRank.OnePair, IsOnePair},
+            {HandRank.HighestCard, IsHighCard},
         };
 
 
@@ -39,34 +38,18 @@ namespace dot_psychic_poker_console
         /// <param name="hand"></param>
         /// <param name="deck"></param>
         /// <returns></returns>
-        public static HandRank GetBestRank(List<Card> hand, List<Card> deck)
+        public static HandRank GetBestRank(IReadOnlyList<Card> hand, IReadOnlyList<Card> deck)
         {
-            if (hand.Count != 5)
+            if (hand.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             HandRank currentRank = HandRank.HighestCard;
 
-            // 5 cards is 5 bits
-            int totalNrOfOptions = (int) Math.Pow(2, 5);
-
-            // Brute force all options by replacing cards based on bit mask // TODO Refactor into enumerator
-            for (int i = 0; i < totalNrOfOptions; i++)
+            // Brute force all possible hands (with this deck)
+            foreach (var handCopy in GetAllPossibleHands(hand, deck))
             {
-                var handCopy = new List<Card>(hand);
-                int deckPosition = 0;
-
-                // Loop through cards 1-5
-                for (int b = 0; b < 5; b++)
-                {
-                    // If this bit 1 then replace card
-                    if (BitUtil.IsBitSet(i, b))
-                    {
-                        handCopy[b] = deck[deckPosition++];
-                    }
-                }
-
                 // Calculate best rank for this hand
                 var rankForCurrentHand = GetBestRank(handCopy);
 
@@ -86,16 +69,54 @@ namespace dot_psychic_poker_console
             return currentRank;
         }
 
+
+        /// <summary>
+        ///     Enumerate through all possible hands given a hand and a deck
+        /// </summary>
+        /// <param name="hand"></param>
+        /// <param name="deck"></param>
+        /// <returns></returns>
+        public static IEnumerable<IReadOnlyList<Card>> GetAllPossibleHands(IReadOnlyList<Card> hand,
+            IReadOnlyList<Card> deck)
+        {
+            if (hand.Count != deck.Count)
+            {
+                throw new ArgumentException("Hand should have equal amount of cards as deck");
+            }
+
+            // Calculate total number of options
+            int totalNrOfOptions = (int) Math.Pow(2, hand.Count);
+
+            // Brute force all options by replacing cards based on bit mask 
+            for (int i = 0; i < totalNrOfOptions; i++)
+            {
+                var handCopy = new List<Card>(hand);
+                int deckPosition = 0;
+
+                // Loop through cards 1-hand.Count
+                for (int b = 0; b < hand.Count; b++)
+                {
+                    // If this bit 1 then replace card
+                    if (BitUtil.IsBitSet(i, b))
+                    {
+                        handCopy[b] = deck[deckPosition++];
+                    }
+                }
+
+                yield return handCopy;
+            }
+        }
+
         /// <summary>
         ///     Calculate best rank for a given hand
         /// </summary>
         /// <param name="hand"></param>
         /// <returns></returns>
-        public static HandRank GetBestRank(List<Card> hand)
+        public static HandRank GetBestRank(IReadOnlyList<Card> hand)
         {
-            if (hand.Count != 5)
+            if (hand.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             // Go through all ranks
@@ -113,15 +134,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Straight Flush
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsStraightFlush(List<Card> cards)
+        public static bool IsStraightFlush(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             // Can't be a straight flush if all aren't the same suit
@@ -139,7 +160,7 @@ namespace dot_psychic_poker_console
         /// </summary>
         /// <param name="cards"></param>
         /// <returns></returns>
-        private static bool IsSequentialHighRules(List<Card> cards)
+        private static bool IsSequentialHighRules(IReadOnlyList<Card> cards)
         {
             // Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
             return IsSequential(cards) || IsSequential(cards.Select(c => c.AceAsOne));
@@ -151,7 +172,7 @@ namespace dot_psychic_poker_console
         /// </summary>
         /// <param name="cards">Not null</param>
         /// <returns></returns>
-        private static bool IsSameSuit(List<Card> cards)
+        private static bool IsSameSuit(IReadOnlyList<Card> cards)
         {
             return cards.All(c => c.Suit == cards[0].Suit);
         }
@@ -173,15 +194,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Four of a Kind
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsFourOfAKind(List<Card> cards)
+        public static bool IsFourOfAKind(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             var ordered = cards.OrderBy(c => c.Face).ToList();
@@ -197,15 +218,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Full House
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsFullHouse(List<Card> cards)
+        public static bool IsFullHouse(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             var ordered = cards.OrderBy(c => c.Face).ToList();
@@ -232,15 +253,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Flush
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsFlush(List<Card> cards)
+        public static bool IsFlush(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             return IsSameSuit(cards);
@@ -250,15 +271,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Straight
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsStraight(List<Card> cards)
+        public static bool IsStraight(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             return IsSequentialHighRules(cards);
@@ -268,15 +289,15 @@ namespace dot_psychic_poker_console
         /// <summary>
         ///     Check if list of cards is a Three of a Kind
         /// 
-        ///     Precondition: All other hand ranks have been checked before this function is called    
+        ///     Precondition: All other higher hand ranks have been checked before this function is called    
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsThreeOfAKind(List<Card> cards)
+        public static bool IsThreeOfAKind(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             var ordered = cards.OrderBy(c => c.Face).ToList();
@@ -296,11 +317,11 @@ namespace dot_psychic_poker_console
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsTwoPair(List<Card> cards)
+        public static bool IsTwoPair(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             // Group by face, and order by count descending (to get two groups of two first)
@@ -317,11 +338,11 @@ namespace dot_psychic_poker_console
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        public static bool IsOnePair(List<Card> cards)
+        public static bool IsOnePair(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             // Group by face, and order by count descending (to one group of two first)
@@ -338,11 +359,11 @@ namespace dot_psychic_poker_console
         /// </summary>
         /// <param name="cards">Must contain exactly five Cards</param>
         /// <returns></returns>
-        private static bool IsHighCard(List<Card> cards)
+        private static bool IsHighCard(IReadOnlyList<Card> cards)
         {
-            if (cards.Count != 5)
+            if (cards.Count != Constants.CardsInOneHand)
             {
-                throw new ArgumentException("Hand should contain 5 cards");
+                throw new ArgumentException(string.Format("Hand should contain {0} cards", Constants.CardsInOneHand));
             }
 
             // If you got this far, it's a high card (aka nothing)

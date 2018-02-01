@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using dot_psychic_poker_console;
 using dot_psychic_poker_console.Model;
 using NUnit.Framework;
@@ -98,8 +99,8 @@ namespace dot_psychic_poker_consoleTests
         [Test]
         public void GetBestRankHandAndDeckTest()
         {
-            List<Card> hand = CardUtil.GetCards("2H 2S 3H 3S 3C");
-            List<Card> deck = CardUtil.GetCards("2D 3D 6C 9C TH");
+            IReadOnlyList<Card> hand = CardUtil.GetCards("2H 2S 3H 3S 3C");
+            IReadOnlyList<Card> deck = CardUtil.GetCards("2D 3D 6C 9C TH");
 
             Assert.AreEqual(HandRank.FourOfAKind, HandChecker.GetBestRank(hand, deck));
         }
@@ -116,6 +117,29 @@ namespace dot_psychic_poker_consoleTests
             Assert.AreEqual(HandRank.TwoPairs, HandChecker.GetBestRank(CardUtil.GetCards("5H 5S 6C 6D 8H")));
             Assert.AreEqual(HandRank.OnePair, HandChecker.GetBestRank(CardUtil.GetCards("2H 2S 1H 4H 3H")));
             Assert.AreEqual(HandRank.HighestCard, HandChecker.GetBestRank(CardUtil.GetCards("5H 7S 6C KD 8H")));
+        }
+
+
+        [Test]
+        public void GetAllPossibleHandsTest()
+        {
+            var actual =
+                HandChecker.GetAllPossibleHands(CardUtil.GetCards("1H 2H 3H"), CardUtil.GetCards("1S 2S 3S"))
+                    .ToList();
+
+            var expected = new List<IReadOnlyList<Card>>
+            {
+                CardUtil.GetCards("1H 2H 3H"),
+                CardUtil.GetCards("1S 2H 3H"),
+                CardUtil.GetCards("1H 1S 3H"),
+                CardUtil.GetCards("1S 2S 3H"),
+                CardUtil.GetCards("1H 2H 1S"),
+                CardUtil.GetCards("1S 2H 2S"),
+                CardUtil.GetCards("1H 1S 2S"),
+                CardUtil.GetCards("1S 2S 3S"),
+            };
+
+            CollectionAssert.AreEqual(expected, actual);
         }
     }
 }

@@ -1,0 +1,50 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot-psychic-poker-console", "dot-psychic-poker-console\dot-psychic-poker-console.csproj", "{68D68ED8-50C2-4925-97DD-FD262116ECBE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "dot-psychic-poker-consoleTests", "dot-psychic-poker-consoleTests\dot-psychic-poker-consoleTests.csproj", "{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{71B2CC76-AF0A-41BA-B4A2-529AE0F647FF}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x64 = Debug|x64
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|x64.ActiveCfg = Debug|x64
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Debug|x64.Build.0 = Debug|x64
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|x64.ActiveCfg = Release|x64
+		{68D68ED8-50C2-4925-97DD-FD262116ECBE}.Release|x64.Build.0 = Release|x64
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|x64.ActiveCfg = Debug|x64
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Debug|x64.Build.0 = Debug|x64
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EE3CDF53-8217-4309-AD68-AE00BF8F8E25}.Release|x64.ActiveCfg = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

@@ -5,21 +5,31 @@ using dot_psychic_poker_console.Model;
 
 namespace dot_psychic_poker_console
 {
-    // TODO: Think of a better name for this class
+    /// <summary>
+    ///     Calculates the best possible rank for a hand and a known deck
+    /// 
+    ///     This implements https://en.wikipedia.org/wiki/List_of_poker_hands
+    /// 
+    ///     It does not score cards with the same rank, and it does not return the cards which make up the best rank.
+    /// </summary>
     public static class HandChecker
     {
+
+        /// <summary>
+        ///     List of all functions in this class for easy/fast access
+        /// </summary>
         private static readonly IReadOnlyDictionary<HandRank, Func<List<Card>, bool>> CheckFunctions = new Dictionary
             <HandRank, Func<List<Card>, bool>>
         {
             {HandRank.StraightFlush, IsStraightFlush},
-            {HandRank.FourOfAKind, IsFourOfAKind},
-            {HandRank.FullHouse, IsFullHouse},
-            {HandRank.Flush, IsFlush},
-            {HandRank.Straight, IsStraight},
-            {HandRank.ThreeOfAKind, IsThreeOfAKind},
-            {HandRank.TwoPairs, IsTwoPair},
-            {HandRank.OnePair, IsOnePair},
-            {HandRank.HighestCard, IsHighCard},
+            {HandRank.FourOfAKind  , IsFourOfAKind},
+            {HandRank.FullHouse    , IsFullHouse},
+            {HandRank.Flush        , IsFlush},
+            {HandRank.Straight     , IsStraight},
+            {HandRank.ThreeOfAKind , IsThreeOfAKind},
+            {HandRank.TwoPairs     , IsTwoPair},
+            {HandRank.OnePair      , IsOnePair},
+            {HandRank.HighestCard  , IsHighCard},
         };
 
 
@@ -100,7 +110,13 @@ namespace dot_psychic_poker_console
             return HandRank.HighestCard;
         }
 
-
+        /// <summary>
+        ///     Check if list of cards is a Straight Flush
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsStraightFlush(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -117,17 +133,35 @@ namespace dot_psychic_poker_console
             return IsSequentialHighRules(cards);
         }
 
+
+        /// <summary>
+        ///     Check if a list of cards is sequential in terms of Face values with high rules applied (Ace can be used as 1) 
+        /// </summary>
+        /// <param name="cards"></param>
+        /// <returns></returns>
         private static bool IsSequentialHighRules(List<Card> cards)
         {
             // Check whether cards are sequential, or cards are sequential when Ace is regarded as 1
             return IsSequential(cards) || IsSequential(cards.Select(c => c.AceAsOne));
         }
 
+
+        /// <summary>
+        ///     Check if list of cards are all of the same suit
+        /// </summary>
+        /// <param name="cards">Not null</param>
+        /// <returns></returns>
         private static bool IsSameSuit(List<Card> cards)
         {
             return cards.All(c => c.Suit == cards[0].Suit);
         }
 
+
+        /// <summary>
+        ///     Check if a list of cards is sequential in terms of Face values
+        /// </summary>
+        /// <param name="cards">Not null</param>
+        /// <returns></returns>
         private static bool IsSequential(IEnumerable<Card> cards)
         {
             var ordered = cards.OrderBy(c => c.Face).ToList();
@@ -135,6 +169,14 @@ namespace dot_psychic_poker_console
             return ordered.Zip(ordered.Skip(1), (a, b) => (a.Face + 1) == b.Face).All(x => x);
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a Four of a Kind
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsFourOfAKind(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -151,6 +193,14 @@ namespace dot_psychic_poker_console
             return cards.Count(c => c.Face == face) == 4;
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a Full House
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsFullHouse(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -178,6 +228,14 @@ namespace dot_psychic_poker_console
             return false;
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a Flush
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsFlush(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -188,6 +246,14 @@ namespace dot_psychic_poker_console
             return IsSameSuit(cards);
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a Straight
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsStraight(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -198,6 +264,14 @@ namespace dot_psychic_poker_console
             return IsSequentialHighRules(cards);
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a Three of a Kind
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called    
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsThreeOfAKind(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -214,6 +288,14 @@ namespace dot_psychic_poker_console
             return cards.Count(c => c.Face == face) == 3;
         }
 
+
+        /// <summary>
+        ///     Check if list of cards has two pairs. 
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsTwoPair(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -227,6 +309,14 @@ namespace dot_psychic_poker_console
             return counts.Count == 3 && counts[0] == 2 && counts[1] == 2;
         }
 
+
+        /// <summary>
+        ///     Check if list of cards has one pair. 
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         public static bool IsOnePair(List<Card> cards)
         {
             if (cards.Count != 5)
@@ -240,8 +330,21 @@ namespace dot_psychic_poker_console
             return counts[0] == 2;
         }
 
+
+        /// <summary>
+        ///     Check if list of cards is a High card (aka Nothing). 
+        /// 
+        ///     Precondition: All other hand ranks have been checked before this function is called
+        /// </summary>
+        /// <param name="cards">Must contain exactly five Cards</param>
+        /// <returns></returns>
         private static bool IsHighCard(List<Card> cards)
         {
+            if (cards.Count != 5)
+            {
+                throw new ArgumentException("Hand should contain 5 cards");
+            }
+
             // If you got this far, it's a high card (aka nothing)
             return true;
         }

@@ -10,8 +10,7 @@ namespace dot_psychic_poker_console
         /// 
         ///     Example: type input.txt | dot-psychic-poker-console.exe
         /// </summary>
-        /// <param name="args"></param>
-        private static void Main(string[] args)
+        private static void Main()
         {
             string line;
             while ((line = Console.ReadLine()) != null && line != "")

@@ -23,7 +23,8 @@ namespace dot_psychic_poker_console.Model
         private static readonly Regex RegEx = new Regex("([A-Z])");
 
         /// <summary>
-        ///     Convert notation as used in C# to what needs to be written to string (convert CamelCasing to something-with-dashes-and-lower-case-only)
+        ///     Convert notation of enum HankdRank as used in C# to what needs to be written to string (convert CamelCasing to 
+        ///     something-with-dashes-and-lower-case-only)
         /// </summary>
         /// <param name="rank"></param>
         /// <returns></returns>

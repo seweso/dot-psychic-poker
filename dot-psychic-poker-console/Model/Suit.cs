@@ -15,11 +15,23 @@ namespace dot_psychic_poker_console.Model
 
     public static class SuitUtil
     {
+
+        /// <summary>
+        ///     Convert this suit to character (for parsing/printing)
+        /// </summary>
+        /// <param name="suit"></param>
+        /// <returns></returns>
         public static char ToCharacter(this Suit suit)
         {
             return suit.ToString()[0];
         }
 
+
+        /// <summary>
+        ///     Convert to suit from character (for parsing)
+        /// </summary>
+        /// <param name="suitCharacter"></param>
+        /// <returns></returns>
         public static Suit GetSuit(char suitCharacter)
         {
             foreach (var suit in EnumUtil.GetValues<Suit>())

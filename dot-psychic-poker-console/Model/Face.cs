@@ -7,6 +7,7 @@ namespace dot_psychic_poker_console.Model
     /// </summary>
     public enum Face
     {
+        // ReSharper disable UnusedMember.Global
         FaceAce, 
         FaceKing,
         FaceQueen,
@@ -26,11 +27,22 @@ namespace dot_psychic_poker_console.Model
 
     public static class FaceUtil
     {
+
+        /// <summary>
+        ///     Convert Face value of Poker card to character (for parsing/printing)
+        /// </summary>
+        /// <param name="face"></param>
+        /// <returns></returns>
         public static char ToCharacter(this Face face)
         {
             return face.ToString()[4];
         }
 
+        /// <summary>
+        ///     Convert character to Face of Poker card (for parsing)
+        /// </summary>
+        /// <param name="faceCharacter"></param>
+        /// <returns></returns>
         public static Face GetFace(char faceCharacter)
         {
             foreach (var face in EnumUtil.GetValues<Face>())

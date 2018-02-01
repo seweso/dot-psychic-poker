@@ -19,7 +19,7 @@ This does not implement:
 * Does not fail gracefully, anything outside of the spec throws an exception (fail early)
 
 QA:
- * NUnit tests for most functions TODO (list %)
+ * NUnit tests for most functions (82% coverage, main function not tested, and argument exceptions for different nr of cards isn't tested)
  * No manual verification tests
  * No code reviews 
  * Not validated

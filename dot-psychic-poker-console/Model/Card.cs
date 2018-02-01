@@ -79,7 +79,7 @@ namespace dot_psychic_poker_console.Model
         /// <returns></returns>
         public static List<Card> GetCards(string cardString)
         {
-            return cardString.Split(' ').Select(Card.Create).ToList();
+            return cardString.Trim().Split(' ').Select(Card.Create).ToList();
         }
     }
 }

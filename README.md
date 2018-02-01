@@ -12,9 +12,15 @@ Build instructions:
 * Run NUnit test project
 * Goto bin/x64/Debug folder and run dot-psychic-poker-console.exe and enter input followed by enter
 
-
 This does not implement: 
 * Checking whether cards are duplicate
 * Showing the cards of the best hand in the output
-* Calculating and displaying detailed rank 
+* Calculating and displaying detailed rank/scoring 
 * Does not fail gracefully, anything outside of the spec throws an exception (fail early)
+
+QA:
+ * NUnit tests for most functions TODO (list %)
+ * No manual verification tests
+ * No code reviews 
+ * Not validated
+ * No usability tests

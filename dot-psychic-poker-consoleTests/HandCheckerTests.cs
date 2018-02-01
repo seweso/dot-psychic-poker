@@ -96,12 +96,26 @@ namespace dot_psychic_poker_consoleTests
 
 
         [Test]
-        public void GetBestRankTest()
+        public void GetBestRankHandAndDeckTest()
         {
             List<Card> hand = CardUtil.GetCards("2H 2S 3H 3S 3C");
             List<Card> deck = CardUtil.GetCards("2D 3D 6C 9C TH");
 
             Assert.AreEqual(HandRank.FourOfAKind, HandChecker.GetBestRank(hand, deck));
+        }
+
+        [Test]
+        public void GetBestRankForHandTest()
+        {
+            Assert.AreEqual(HandRank.StraightFlush, HandChecker.GetBestRank(CardUtil.GetCards("AH KH QH JH TH")));
+            Assert.AreEqual(HandRank.FourOfAKind, HandChecker.GetBestRank(CardUtil.GetCards("5H 5S 5C 5D 8H")));
+            Assert.AreEqual(HandRank.FullHouse, HandChecker.GetBestRank(CardUtil.GetCards("5H 5S 8C 8D 8H")));
+            Assert.AreEqual(HandRank.Flush, HandChecker.GetBestRank(CardUtil.GetCards("AH JH TH 9H 8H")));
+            Assert.AreEqual(HandRank.Straight, HandChecker.GetBestRank(CardUtil.GetCards("AD KH QH JH TH")));
+            Assert.AreEqual(HandRank.ThreeOfAKind, HandChecker.GetBestRank(CardUtil.GetCards("5H 5S 5C 6D 8H")));
+            Assert.AreEqual(HandRank.TwoPairs, HandChecker.GetBestRank(CardUtil.GetCards("5H 5S 6C 6D 8H")));
+            Assert.AreEqual(HandRank.OnePair, HandChecker.GetBestRank(CardUtil.GetCards("2H 2S 1H 4H 3H")));
+            Assert.AreEqual(HandRank.HighestCard, HandChecker.GetBestRank(CardUtil.GetCards("5H 7S 6C KD 8H")));
         }
     }
 }
